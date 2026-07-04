@@ -85,6 +85,20 @@ python -c "import torch; print(torch.__version__)"
 - **Sketchy Extended**: Extended version of Sketchy dataset
 - **ShoeV2**: Shoe dataset for sketch-based retrieval
 - **ChairV2**: Chair dataset for sketch-based retrieval
+  
+  📂 Datasets linkes
+
+- **ShoeV2 / ChairV2**  
+  [Sketchy Official Website](https://sketchx.eecs.qmul.ac.uk/downloads/)  
+  [Google Drive Download](https://drive.google.com/file/d/1frltfiEd9ymnODZFHYrbg741kfys1rq1/view)
+
+- **Sketchy**  
+  [Sketchy Official Website](https://sketchx.eecs.qmul.ac.uk/downloads/)  
+  [Google Drive Download](https://drive.google.com/file/d/11GAr0jrtowTnR3otyQbNMSLPeHyvecdP/view)
+
+- **TU-Berlin**  
+  [TU-Berlin Official Website](https://www.tu-berlin.de/)  
+  [Google Drive Download](https://drive.google.com/file/d/12VV40j5Nf4hNBfFy0AhYEtql1OjwXAUC/view)
 
 ### Dataset Structure
 
@@ -123,20 +137,6 @@ Each split file should contain one entry per line:
 ```
 category/sketch_name.jpg category/photo_name.jpg label
 ```
-📂 Datasets
-
-- **ShoeV2 / ChairV2**  
-  [Sketchy Official Website](https://sketchx.eecs.qmul.ac.uk/downloads/)  
-  [Google Drive Download](https://drive.google.com/file/d/1frltfiEd9ymnODZFHYrbg741kfys1rq1/view)
-
-- **Sketchy**  
-  [Sketchy Official Website](https://sketchx.eecs.qmul.ac.uk/downloads/)  
-  [Google Drive Download](https://drive.google.com/file/d/11GAr0jrtowTnR3otyQbNMSLPeHyvecdP/view)
-
-- **TU-Berlin**  
-  [TU-Berlin Official Website](https://www.tu-berlin.de/)  
-  [Google Drive Download](https://drive.google.com/file/d/12VV40j5Nf4hNBfFy0AhYEtql1OjwXAUC/view)
-
 
 Citation: If you use this code, please cite:
 
