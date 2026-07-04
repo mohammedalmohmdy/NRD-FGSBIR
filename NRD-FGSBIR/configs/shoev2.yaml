@@ -1,0 +1,27 @@
+# Configuration for ShoeV2 Dataset
+# Inherits from default.yaml and overrides dataset-specific settings
+
+defaults:
+  - default
+
+# Dataset-specific settings
+training:
+  dataset: "shoev2"
+  data_root: "./data/shoev2"
+  batch_size: 32
+  num_epochs: 80
+  
+  # ShoeV2 specific loss weights
+  loss_weights:
+    triplet_ranking: 1.0
+    trajectory_alignment: 0.6
+    smoothness: 0.15
+    l2_regularization: 0.001
+
+# ShoeV2 specific augmentation
+augmentation:
+  train:
+    resize: 256
+    crop_size: 224
+    horizontal_flip: 0.5
+    rotation: 10

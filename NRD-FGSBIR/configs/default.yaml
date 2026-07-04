@@ -1,0 +1,156 @@
+# Neural Retrieval Dynamics (NRD) Configuration File
+# This configuration file contains all hyperparameters for training and evaluation
+
+# Model Configuration
+model:
+  # Encoder settings
+  sketch_encoder:
+    backbone: "resnet50"
+    pretrained: true
+    feature_dim: 2048
+    dropout: 0.5
+  
+  image_encoder:
+    backbone: "resnet50"
+    pretrained: true
+    feature_dim: 2048
+    dropout: 0.5
+  
+  # Trajectory learning settings
+  trajectory:
+    num_steps: 10
+    hidden_dim: 512
+    trajectory_dim: 256
+    temperature: 0.07
+    momentum: 0.999
+  
+  # Interaction module settings
+  interaction:
+    num_heads: 8
+    hidden_dim: 512
+    num_layers: 2
+    dropout: 0.1
+  
+  # Similarity optimization settings
+  similarity:
+    similarity_type: "cosine"
+    progressive_steps: 5
+    alpha: 0.5
+    beta: 0.3
+
+# Training Configuration
+training:
+  # Dataset settings
+  dataset: "sketchy_extended"  # Options: sketchy_extended, shoev2, chairv2
+  data_root: "./data"
+  batch_size: 64
+  num_workers: 8
+  
+  # Optimizer settings
+  optimizer: "adam"
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  momentum: 0.9
+  
+  # Learning rate scheduler
+  scheduler: "cosine"
+  warmup_epochs: 5
+  min_lr: 0.000001
+  
+  # Training epochs
+  num_epochs: 100
+  
+  # Loss weights
+  loss_weights:
+    triplet_ranking: 1.0
+    trajectory_alignment: 0.5
+    smoothness: 0.1
+    l2_regularization: 0.001
+  
+  # Triplet loss settings
+  triplet:
+    margin: 0.3
+    mining_type: "semihard"  # Options: random, semihard, hard
+
+# Validation Configuration
+validation:
+  batch_size: 64
+  num_workers: 8
+  eval_interval: 1  # Evaluate every N epochs
+  
+  # Evaluation metrics
+  metrics:
+    - "map@200"
+    - "precision@1"
+    - "precision@5"
+    - "precision@10"
+    - "recall@1"
+    - "recall@5"
+    - "recall@10"
+    - "top1"
+    - "top5"
+    - "top10"
+
+# Checkpoint Configuration
+checkpoint:
+  save_dir: "./checkpoints"
+  save_interval: 5  # Save every N epochs
+  max_keep: 5  # Keep only last N checkpoints
+  resume: null  # Path to checkpoint to resume from
+
+# Logging Configuration
+logging:
+  log_dir: "./logs"
+  tensorboard: true
+  log_interval: 100  # Log every N iterations
+  print_interval: 10  # Print every N iterations
+
+# Reproducibility Settings
+reproducibility:
+  seed: 42
+  deterministic: true
+  benchmark: false
+
+# Hardware Configuration
+hardware:
+  device: "cuda"  # Options: cuda, cpu
+  num_gpus: 1  # Number of GPUs to use (0 for CPU)
+  mixed_precision: true  # Use automatic mixed precision
+  distributed: false  # Enable distributed training
+
+# Early Stopping Configuration
+early_stopping:
+  enabled: true
+  patience: 10  # Number of epochs to wait before stopping
+  metric: "map@200"  # Metric to monitor
+  mode: "max"  # Options: max, min
+
+# Data Augmentation Configuration
+augmentation:
+  train:
+    resize: 256
+    crop_size: 224
+    horizontal_flip: 0.5
+    rotation: 15
+    color_jitter:
+      brightness: 0.4
+      contrast: 0.4
+      saturation: 0.4
+      hue: 0.1
+    normalize:
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+  
+  val:
+    resize: 256
+    crop_size: 224
+    normalize:
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+
+# Inference Configuration
+inference:
+  checkpoint_path: "./checkpoints/best_model.pth"
+  batch_size: 64
+  num_workers: 8
+  device: "cuda"
